@@ -2,7 +2,11 @@ from django.urls import path
 from .views import create_job, employer_jobs,job_detail,update_job,delete_job,job_list,employee_job_detail,apply_job
 from .views import my_applications,job_applicants,employer_dashboard,employee_dashboard
 from .views import update_application_status
-from .views import view_resume, download_resume    
+from .views import view_resume, download_resume 
+
+
+
+
 urlpatterns = [
     path(
         'create/',

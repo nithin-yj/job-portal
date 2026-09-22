@@ -7,6 +7,8 @@ from accounts.decorators import role_required
 from accounts.models import User
 from .forms import ApplicationForm, JobForm
 from .models import Application, Job
+from django.http import Http404
+
 
 
 @role_required(User.Role.EMPLOYER)
