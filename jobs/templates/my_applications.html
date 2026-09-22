@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}My Applications - Job Portal{% endblock %}
+
+{% block content %}
+
+<h1>My Applications</h1>
+
+<div class="application-list">
+
+    {% for application in applications %}
+
+        <div class="application-card">
+
+            <h2>{{ application.job.title }}</h2>
+
+            <p>
+                <strong>Location:</strong>
+                {{ application.job.location }}
+            </p>
+
+            <p>
+                <strong>Salary:</strong>
+                ₹{{ application.job.salary }}
+            </p>
+
+            <p>
+                <strong>Applied on:</strong>
+                {{ application.applied_at|date:"d M Y" }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+
+                <span class="status-badge">
+                    {{ application.get_status_display }}
+                </span>
+            </p>
+
+            <a
+                href="{% url 'employee_job_detail' application.job.id %}"
+                class="btn btn-primary"
+            >
+                View Job
+            </a>
+
+        </div>
+
+    {% empty %}
+
+        <div class="empty-state">
+            <p>You have not applied for any jobs yet.</p>
+
+            <a href="{% url 'job_list' %}" class="btn btn-primary">
+                Browse Jobs
+            </a>
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% if applications %}
+    <div class="dashboard-actions">
+        <a href="{% url 'job_list' %}" class="btn btn-secondary">
+            Browse Jobs
+        </a>
+    </div>
+{% endif %}
+
+{% endblock %}

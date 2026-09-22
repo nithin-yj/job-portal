@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Job Portal{% endblock %}
+
+{% block content %}
+
+<div class="home-card">
+
+    <div class="home-header">
+        <h1>Welcome to Job Portal</h1>
+
+        {% if user.is_authenticated %}
+            <p>Welcome back, {{ user.first_name }}.</p>
+        {% else %}
+            <p>Find opportunities and manage your job applications.</p>
+        {% endif %}
+    </div>
+
+    {% if user.is_authenticated %}
+
+        <div class="profile-info">
+
+            <div class="profile-info-item">
+                <span class="profile-label">Name</span>
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+            </div>
+
+            <div class="profile-info-item">
+                <span class="profile-label">Email</span>
+                <p>{{ user.email }}</p>
+            </div>
+
+            <div class="profile-info-item">
+                <span class="profile-label">Role</span>
+                <p>{{ user.role }}</p>
+            </div>
+
+        </div>
+
+    {% else %}
+
+        <div class="home-login-message">
+            <p>You are not logged in.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+```

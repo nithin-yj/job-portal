@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ job.title }} - Job Portal{% endblock %}
+
+{% block content %}
+
+<div class="job-detail-card">
+
+    <div class="job-detail-header">
+        <div>
+            <h1>{{ job.title }}</h1>
+
+            {% if job.is_active %}
+                <span class="status-badge status-active">Active</span>
+            {% else %}
+                <span class="status-badge status-inactive">Inactive</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="job-detail-info">
+
+        <div class="job-detail-item">
+            <span class="job-detail-label">Location</span>
+            <p>{{ job.location }}</p>
+        </div>
+
+        <div class="job-detail-item">
+            <span class="job-detail-label">Salary</span>
+            <p>{{ job.salary }}</p>
+        </div>
+
+    </div>
+
+    <div class="job-description">
+        <h2>Job Description</h2>
+        <p>{{ job.description }}</p>
+    </div>
+
+    <div class="job-detail-actions">
+
+        <a href="{% url 'update_job' job.id %}" class="btn btn-primary">
+            Edit Job
+        </a>
+
+        <a href="{% url 'employer_jobs' %}" class="btn btn-secondary">
+            Back to My Jobs
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
+```

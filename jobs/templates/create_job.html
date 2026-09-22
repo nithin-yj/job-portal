@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Job - Job Portal{% endblock %}
+
+{% block content %}
+
+<h1>Create Job</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+   <button type="submit" class="btn btn-primary">
+    Create Job
+</button>
+</form>
+
+<p>
+  <a href="{% url 'employer_jobs' %}" class="btn btn-secondary">
+    My Jobs
+</a>
+</p>
+
+{% endblock %}

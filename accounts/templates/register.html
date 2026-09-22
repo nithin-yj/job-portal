@@ -1,0 +1,37 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Register - Job Portal{% endblock %}
+
+{% block content %}
+
+<center>
+    <div class="auth-card">
+
+    <div class="auth-header">
+        <h1>Create Account</h1>
+        <p>Join the Job Portal and get started.</p>
+    </div>
+
+    <form method="POST" class="auth-form">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary auth-submit">
+            Register
+        </button>
+    </form>
+
+    <div class="auth-links">
+        <p>
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </p>
+    </div>
+
+</div>
+</center>
+
+{% endblock %}
+```

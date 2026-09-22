@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Employee Dashboard - Job Portal{% endblock %}
+
+{% block content %}
+
+<h1>Employee Dashboard</h1>
+
+<div class="dashboard-card">
+    <h2>My Applications</h2>
+    <p class="dashboard-number">{{ total_applications }}</p>
+    <p>Total applications submitted</p>
+</div>
+
+<h2>Recent Applications</h2>
+
+<div class="application-list">
+
+    {% for application in recent_applications %}
+
+        <div class="application-card">
+
+            <h3>{{ application.job.title }}</h3>
+
+            <p>
+                <strong>Location:</strong>
+                {{ application.job.location }}
+            </p>
+
+            <p>
+                <strong>Applied on:</strong>
+                {{ application.applied_at|date:"d M Y" }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <span class="status-badge">
+                    {{ application.get_status_display }}
+                </span>
+            </p>
+
+        </div>
+
+    {% empty %}
+
+        <div class="empty-state">
+            <p>You haven't applied for any jobs yet.</p>
+
+            <a href="{% url 'job_list' %}" class="btn btn-primary">
+                Browse Jobs
+            </a>
+        </div>
+
+    {% endfor %}
+
+</div>
+
+<div class="dashboard-actions">
+
+    <a href="{% url 'job_list' %}" class="btn btn-primary">
+        Browse Jobs
+    </a>
+
+    <a href="{% url 'my_applications' %}" class="btn btn-secondary">
+        My Applications
+    </a>
+
+</div>
+
+{% endblock %}

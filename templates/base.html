@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Job Portal{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <a href="{% url 'home' %}">Job Portal</a>
+        </div>
+
+        <div>
+            {% if user.is_authenticated %}
+
+            {% if user.role == 'EMPLOYER' %}
+            <a href="{% url 'employer_dashboard' %}">Dashboard</a>
+            <a href="{% url 'employer_jobs' %}">My Jobs</a>
+            <a href="{% url 'create_job' %}">Post Job</a>
+
+            {% elif user.role == 'EMPLOYEE' %}
+            <a href="{% url 'employee_dashboard' %}">Dashboard</a>
+            <a href="{% url 'job_list' %}">Jobs</a>
+            <a href="{% url 'my_applications' %}">Applications</a>
+            {% endif %}
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+
+            {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container">
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</body>
+
+</html>

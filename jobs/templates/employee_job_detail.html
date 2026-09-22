@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ job.title }} - Job Portal{% endblock %}
+
+{% block content %}
+
+<div class="job-detail-card">
+
+    <h1>{{ job.title }}</h1>
+
+    <div class="job-meta">
+        <p>
+            <strong>Location:</strong> {{ job.location }}
+        </p>
+
+        <p>
+            <strong>Salary:</strong> ₹{{ job.salary }}
+        </p>
+
+        <p>
+            <strong>Posted:</strong> {{ job.created_at|date:"d M Y" }}
+        </p>
+    </div>
+
+    <div class="job-description">
+        <h3>Description</h3>
+        <p>{{ job.description }}</p>
+    </div>
+
+    <div class="job-actions">
+
+        <a href="{% url 'job_list' %}" class="btn btn-secondary">
+            Back to Jobs
+        </a>
+
+        {% if user.role == 'EMPLOYEE' %}
+    <a href="{% url 'apply_job' job.id %}" class="btn btn-primary">
+        Apply for Job
+    </a>
+{% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

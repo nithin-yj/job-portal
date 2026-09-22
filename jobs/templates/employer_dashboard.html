@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Employer Dashboard - Job Portal{% endblock %}
+
+{% block content %}
+
+<h1>Employer Dashboard</h1>
+
+<div class="dashboard-stats">
+
+    <div class="stat-card">
+        <h3>Total Jobs</h3>
+        <p class="dashboard-number">{{ total_jobs }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Active Jobs</h3>
+        <p class="dashboard-number">{{ active_jobs }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Applications</h3>
+        <p class="dashboard-number">{{ total_applications }}</p>
+    </div>
+
+</div>
+
+<div class="dashboard-actions">
+
+    <a href="{% url 'create_job' %}" class="btn btn-primary">
+        Create Job
+    </a>
+
+    <a href="{% url 'employer_jobs' %}" class="btn btn-secondary">
+        My Jobs
+    </a>
+
+</div>
+
+{% endblock %}

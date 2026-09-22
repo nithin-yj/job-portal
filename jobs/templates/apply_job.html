@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Apply - {{ job.title }}{% endblock %}
+
+{% block content %}
+
+<div class="apply-card">
+
+    <div class="apply-header">
+        <h1>Apply for {{ job.title }}</h1>
+        <p>Submit your resume to apply for this position.</p>
+    </div>
+
+    <div class="apply-job-info">
+        <p>
+            <strong>Location:</strong>
+            {{ job.location }}
+        </p>
+
+        <p>
+            <strong>Salary:</strong>
+            {{ job.salary }}
+        </p>
+    </div>
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="apply-form">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <p class="file-help">
+            Accepted format: PDF · Maximum size: 5 MB
+        </p>
+
+        <div class="apply-actions">
+
+            <button type="submit" class="btn btn-primary">
+                Submit Application
+            </button>
+
+            <a href="{% url 'employee_job_detail' job.id %}"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+```

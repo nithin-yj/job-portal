@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Job - Job Portal{% endblock %}
+
+{% block content %}
+
+<div class="form-card">
+
+    <div class="form-header">
+        <h1>Update Job</h1>
+        <p>Update the details of your job posting.</p>
+    </div>
+
+    <form method="POST" class="job-form">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="form-actions">
+
+            <button type="submit" class="btn btn-primary">
+                Update Job
+            </button>
+
+            <a href="{% url 'job_detail' job.id %}"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+```

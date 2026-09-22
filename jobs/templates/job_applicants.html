@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}Applicants - {{ job.title }}{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h1>Applicants</h1>
+        <p>Applicants for <strong>{{ job.title }}</strong></p>
+    </div>
+
+    <a href="{% url 'job_detail' job.id %}" class="btn btn-secondary">
+        Back to Job
+    </a>
+
+</div>
+
+
+<div class="applicants-list">
+
+    {% for application in applications %}
+
+    <div class="applicant-card">
+
+        <div class="applicant-info">
+
+            <h2>
+                {{ application.employee.first_name }}
+                {{ application.employee.last_name }}
+            </h2>
+
+            <p>
+                <strong>Email:</strong>
+                {{ application.employee.email }}
+            </p>
+
+            <p>
+                <strong>Applied on:</strong>
+                {{ application.applied_at }}
+            </p>
+
+            {% if application.resume %}
+            <div class="resume-actions">
+
+                <a href="{% url 'view_resume' application.id %}" class="btn btn-secondary" target="_blank">
+                    View Resume
+                </a>
+
+                <a href="{% url 'download_resume' application.id %}" class="btn btn-primary">
+                    Download Resume
+                </a>
+
+            </div>
+            {% endif %}
+
+        </div>
+
+
+        <div class="applicant-status">
+
+            <form method="POST" action="{% url 'update_application_status' application.id %}">
+
+                {% csrf_token %}
+
+                <label for="status-{{ application.id }}">
+                    Application Status
+                </label>
+
+                <div class="status-actions">
+
+                    <select name="status" id="status-{{ application.id }}">
+
+                        <option value="APPLIED" {% if application.status == 'APPLIED' %}selected{% endif %}>
+                            Applied
+                        </option>
+
+                        <option value="SELECTED" {% if application.status == 'SELECTED' %}selected{% endif %}>
+                            Selected
+                        </option>
+
+                        <option value="REJECTED" {% if application.status == 'REJECTED' %}selected{% endif %}>
+                            Rejected
+                        </option>
+
+                    </select>
+
+                    <button type="submit" class="btn btn-primary">
+                        Update Status
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="empty-state">
+
+        <h2>No applications yet</h2>
+
+        <p>
+            No candidates have applied for this job yet.
+        </p>
+
+        <a href="{% url 'job_detail' job.id %}" class="btn btn-secondary">
+            Back to Job
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+```
