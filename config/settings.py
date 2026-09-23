@@ -18,6 +18,8 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
+if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
+    ALLOWED_HOSTS.append(os.getenv('RENDER_EXTERNAL_HOSTNAME'))
 
 # Security settings
 SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT') == 'True'
@@ -167,3 +169,8 @@ CSRF_TRUSTED_ORIGINS = [
     for origin in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
     if origin.strip()
 ]
+
+if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
+    CSRF_TRUSTED_ORIGINS.append(
+        f"https://{os.getenv('RENDER_EXTERNAL_HOSTNAME')}"
+    )
