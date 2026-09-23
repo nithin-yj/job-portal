@@ -23,13 +23,16 @@ def register(request):
         if form.is_valid():
             user = form.save()
 
-            send_mail(
-                'Welcome to Job Portal',
-                f'Hello {user.first_name},\n\n'
-                'Welcome to our Job Portal! Your account has been created successfully.',
-                None,
-                [user.email],
-            )
+            try:
+                send_mail(
+                    'Welcome to Job Portal',
+                    f'Hello {user.first_name},\n\n'
+                    'Welcome to our Job Portal! Your account has been created successfully.',
+                    None,
+                    [user.email],
+                )
+            except Exception:
+                pass
 
             return redirect('login')
 
